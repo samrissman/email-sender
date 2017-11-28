@@ -1,0 +1,15 @@
+EMAIL_USER= work email
+EMAIL_PASS= 
+
+FROM_ADDRESS = VI <info@vi.com.au>
+
+EMAIL_SUBJECT_LINE = Example subject line
+
+EMAIL_FILE_PATH = index.html
+
+INTERNAL_EMAILS= List of internal emails from brief
+
+CLIENT_EMAILS= list of client emails from brief 
+
+LITMUS_TEST_EMAIL = Litmus test address
+LITMUS_RETEST_EMAIL = Litmus retest address
