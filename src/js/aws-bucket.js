@@ -1,7 +1,7 @@
 var AWS = require('aws-sdk')
 AWS.config.update({
-	accessKeyId: "AKIAJOAHTD2H4ZPHGHOQ",
-    secretAccessKey: "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",
+	accessKeyId: process.env.s3Id,
+    secretAccessKey: process.env.s3Key,
     region: 'ap-northeast-1'});
 var dotenv = require('dotenv/config');
 var bucketName = user = process.env.bucketName
