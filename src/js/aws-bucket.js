@@ -1,28 +1,44 @@
-var AWS = require('aws-sdk'),
-dotenv = require('dotenv/config');
+var AWS = require('aws-sdk')
+AWS.config.update({
+	accessKeyId: "AKIAJOAHTD2H4ZPHGHOQ",
+    secretAccessKey: "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",
+    region: 'ap-northeast-1'});
+var dotenv = require('dotenv/config');
 var bucketName = user = process.env.bucketName
-var s3 = new AWS.S3();
-var s3Bucket = new AWS.S3( { params: {Bucket: bucketName} } )
-var path = './src/img';
+var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+var s3Bucket = new AWS.S3( { params: {Bucket: bucketName} } );
 var fs = require('fs');
-var multer = require('multer');
+var async = require('async');
+var path = require("path");
 
-readFile(path);
+var directoryName = './src/img',
+	directoryPath = path.resolve(directoryName);
 
-function readFile(path) {
-	// fs.readdir(path, (err, files) => {
-	//   files.forEach(file => {
-	//     console.log(file);
-	//   });
-	// })
-	// fs.realpath(path, (err, filePaths) => {
-	// 		console.log(filePaths)
-	// })
+readFile(directoryName);
 
-	upload.array('photos', 12), function (req, res, next) {
-		console.log(req.files, req.body);
-	  // req.files is array of `photos` files
-	  // req.body will contain the text fields, if there were any
+function readFile(directoryName) {
+	fs.readdir(directoryName, (err, files) => {
+	  files.forEach(file => {
+	    
+	  	var directoryFiles = fs.readdirSync(directoryPath);
+			async.map(directoryFiles, function (f, cb) {
+			    var filePath = path.join(directoryPath, f);
+
+			    var options = {
+			        Bucket: 'viemailsender',
+			        Key: file,
+			        Body: fs.readFileSync(filePath)
+			    };
+
+			    s3.putObject(options, cb);
+
+			}, function (err, results) {
+			    if (err) console.error(err);
+			    console.log(results);
+			});
+
+
+	  });
 	})
 };
 
@@ -49,4 +65,14 @@ function getImage() {
 		    }
 		});
 }
+
+function listBuckets() {
+s3.listBuckets(function(err, data) {
+   if (err) {
+      console.log("Error", err);
+   } else {
+      console.log("Bucket List", data.Buckets);
+   }
+});
+};
 
