@@ -1,9 +1,9 @@
+var dotenv = require('dotenv/config');
 var AWS = require('aws-sdk')
 AWS.config.update({
-	accessKeyId: process.env.s3Id,
-    secretAccessKey: process.env.s3Key,
+	accessKeyId: process.env.S3ID,
+    secretAccessKey: process.env.S3KEY,
     region: 'ap-northeast-1'});
-var dotenv = require('dotenv/config');
 var bucketName = user = process.env.bucketName
 var s3 = new AWS.S3({apiVersion: '2006-03-01'});
 var s3Bucket = new AWS.S3( { params: {Bucket: bucketName} } );
@@ -11,12 +11,13 @@ var fs = require('fs');
 var async = require('async');
 var path = require("path");
 
-var directoryName = './src/img',
-	directoryPath = path.resolve(directoryName);
+var directoryName = './src/img';
 
-readFile(directoryName);
+uploadFile(directoryName);
 
-function readFile(directoryName) {
+function uploadFile(directoryName) {
+	var directoryPath = path.resolve(directoryName);
+
 	fs.readdir(directoryName, (err, files) => {
 	  files.forEach(file => {
 	    
@@ -27,7 +28,8 @@ function readFile(directoryName) {
 			    var options = {
 			        Bucket: 'viemailsender',
 			        Key: file,
-			        Body: fs.readFileSync(filePath)
+			        Body: fs.readFileSync(filePath),
+			        ACL:'public-read'
 			    };
 
 			    s3.putObject(options, cb);
@@ -41,17 +43,6 @@ function readFile(directoryName) {
 	  });
 	})
 };
-
-function addImage(imageName, imageFile) {
-	var data = {Key: imageName, Body: imageFile};
-		s3Bucket.putObject(data, function(err, data){
-		  if (err) 
-		    { console.log('Error uploading data: ', data); 
-		    } else {
-		      console.log('succesfully uploaded the image!');
-		    }
-		});
-	};
 
 function getImage() {
 	var params = {Bucket: 'myBucket'};

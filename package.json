@@ -9,7 +9,8 @@
     "start": "node index.js",
     "setup": "node setup.js",
     "test": "node testSMTP.js",
-    "images": "node ./src/js/aws-bucket.js"
+    "images": "node ./src/js/aws-bucket.js",
+    "stringReplace": "node ./src/js/stringReplace.js"
   },
   "author": "SamRissman",
   "license": "ISC",
