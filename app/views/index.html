@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Email sender gui</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.css">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+	<div class="row">
+		<div class="small-10 large-6 large-offset-3 columns">
+			<h1>Email Sender GUI</h1>
+
+			<form method="post" action="/upload" class="imageUpload--form">
+				<div>
+					<label for="">Image Folder:</label>
+					<input type="file" name="imageFolder" placeholder="Images Folder">
+
+					<button type="submit">Upload Images</button>
+				</div>
+			</form>
+
+			<div class="spacer">
+				&nbsp;
+			</div>
+
+			<form method="post" action="/send" class="sendEmail--form">
+				<div>
+					<label for="subject">Subject:</label>
+					<input type="text" name="subject" placeholder="subject line">
+				</div>
+				<div>
+					<label for="recipients">Recipients:</label>
+					<input type="text" name="recipients" placeholder="">
+				</div>
+
+				<div>
+					<label for="recipients">Html:</label>
+					<input type="file" name="recipients" placeholder="Html file">
+				</div>
+
+				
+				<div>
+					<button type="submit" value="Submit">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+  	<script src="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.js"></script>
+</body>
+</html>

@@ -11,37 +11,38 @@ var fs = require('fs');
 var async = require('async');
 var path = require("path");
 
-var directoryName = './src/img';
-
-uploadFile(directoryName);
+// uploadFile(directoryName);
+console.log('aws bucket');
 
 function uploadFile(directoryName) {
-	var directoryPath = path.resolve(directoryName);
+	var directoryPath = path.dirname(directoryName);
 
-	fs.readdir(directoryName, (err, files) => {
-	  files.forEach(file => {
+	console.log(directoryPath);
+
+	// fs.readdir(directoryName, (err, files) => {
+	//   files.forEach(file => {
 	    
-	  	var directoryFiles = fs.readdirSync(directoryPath);
-			async.map(directoryFiles, function (f, cb) {
-			    var filePath = path.join(directoryPath, f);
+	//   	var directoryFiles = fs.readdirSync(directoryPath);
+	// 		async.map(directoryFiles, function (f, cb) {
+	// 		    var filePath = path.join(directoryPath, f);
 
-			    var options = {
-			        Bucket: 'viemailsender',
-			        Key: file,
-			        Body: fs.readFileSync(filePath),
-			        ACL:'public-read'
-			    };
+	// 		    var options = {
+	// 		        Bucket: 'viemailsender',
+	// 		        Key: file,
+	// 		        Body: fs.readFileSync(filePath),
+	// 		        ACL:'public-read'
+	// 		    };
 
-			    s3.putObject(options, cb);
+	// 		    s3.putObject(options, cb);
 
-			}, function (err, results) {
-			    if (err) console.error(err);
-			    console.log(results);
-			});
+	// 		}, function (err, results) {
+	// 		    if (err) console.error(err);
+	// 		    console.log(results);
+	// 		});
 
 
-	  });
-	})
+	//   });
+	// })
 };
 
 function getImage() {
