@@ -1,5 +1,8 @@
 // app/routes.js
 var bucketUplaod = require('./src/js/form-handler.js');
+var formidable = require('formidable'),
+    http = require('http'),
+    util = require('util');
 
 module.exports = function(app, path) {
 
@@ -11,7 +14,11 @@ module.exports = function(app, path) {
         })
 
 
-    app.post('/upload', function(req, res) {
-            fileInput(req);
+    app.post('/upload',function(req, res){
+    var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) 
+        {
+          console.log(files);
         });
-    };
+    })
+}
